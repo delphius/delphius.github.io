@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>1</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+@font-face {
+font-family: octicons-link;
+src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+body {
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+-ms-text-size-adjust: 100%;
+-webkit-text-size-adjust: 100%;
+line-height: 1.5;
+color: #333;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+font-size: 16px;
+line-height: 1.5;
+word-wrap: break-word;
+}
+.pl-c {
+color: #969896;
+}
+.pl-c1,
+.pl-s .pl-v {
+color: #0086b3;
+}
+.pl-e,
+.pl-en {
+color: #795da3;
+}
+.pl-smi,
+.pl-s .pl-s1 {
+color: #333;
+}
+.pl-ent {
+color: #63a35c;
+}
+.pl-k {
+color: #a71d5d;
+}
+.pl-s,
+.pl-pds,
+.pl-s .pl-pse .pl-s1,
+.pl-sr,
+.pl-sr .pl-cce,
+.pl-sr .pl-sre,
+.pl-sr .pl-sra {
+color: #183691;
+}
+.pl-v {
+color: #ed6a43;
+}
+.pl-id {
+color: #b52a1d;
+}
+.pl-ii {
+color: #f8f8f8;
+background-color: #b52a1d;
+}
+.pl-sr .pl-cce {
+font-weight: bold;
+color: #63a35c;
+}
+.pl-ml {
+color: #693a17;
+}
+.pl-mh,
+.pl-mh .pl-en,
+.pl-ms {
+font-weight: bold;
+color: #1d3e81;
+}
+.pl-mq {
+color: #008080;
+}
+.pl-mi {
+font-style: italic;
+color: #333;
+}
+.pl-mb {
+font-weight: bold;
+color: #333;
+}
+.pl-md {
+color: #bd2c00;
+background-color: #ffecec;
+}
+.pl-mi1 {
+color: #55a532;
+background-color: #eaffea;
+}
+.pl-mdr {
+font-weight: bold;
+color: #795da3;
+}
+.pl-mo {
+color: #1d3e81;
+}
+.octicon {
+display: inline-block;
+vertical-align: text-top;
+fill: currentColor;
+}
+a {
+background-color: transparent;
+-webkit-text-decoration-skip: objects;
+}
+a:active,
+a:hover {
+outline-width: 0;
+}
+strong {
+font-weight: inherit;
+}
+strong {
+font-weight: bolder;
+}
+h1 {
+font-size: 2em;
+margin: 0.67em 0;
+}
+img {
+border-style: none;
+}
+svg:not(:root) {
+overflow: hidden;
+}
+code,
+kbd,
+pre {
+font-family: monospace, monospace;
+font-size: 1em;
+}
+hr {
+box-sizing: content-box;
+height: 0;
+overflow: visible;
+}
+input {
+font: inherit;
+margin: 0;
+}
+input {
+overflow: visible;
+}
+[type="checkbox"] {
+box-sizing: border-box;
+padding: 0;
+}
+* {
+box-sizing: border-box;
+}
+input {
+font-family: inherit;
+font-size: inherit;
+line-height: inherit;
+}
+a {
+color: #4078c0;
+text-decoration: none;
+}
+a:hover,
+a:active {
+text-decoration: underline;
+}
+strong {
+font-weight: 600;
+}
+hr {
+height: 0;
+margin: 15px 0;
+overflow: hidden;
+background: transparent;
+border: 0;
+border-bottom: 1px solid #ddd;
+}
+hr::before {
+display: table;
+content: "";
+}
+hr::after {
+display: table;
+clear: both;
+content: "";
+}
+table {
+border-spacing: 0;
+border-collapse: collapse;
+}
+td,
+th {
+padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 0;
+margin-bottom: 0;
+}
+h1 {
+font-size: 32px;
+font-weight: 600;
+}
+h2 {
+font-size: 24px;
+font-weight: 600;
+}
+h3 {
+font-size: 20px;
+font-weight: 600;
+}
+h4 {
+font-size: 16px;
+font-weight: 600;
+}
+h5 {
+font-size: 14px;
+font-weight: 600;
+}
+h6 {
+font-size: 12px;
+font-weight: 600;
+}
+p {
+margin-top: 0;
+margin-bottom: 10px;
+}
+blockquote {
+margin: 0;
+}
+ul,
+ol {
+padding-left: 0;
+margin-top: 0;
+margin-bottom: 0;
+}
+ol ol,
+ul ol {
+list-style-type: lower-roman;
+}
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+list-style-type: lower-alpha;
+}
+dd {
+margin-left: 0;
+}
+code {
+font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+font-size: 12px;
+}
+pre {
+margin-top: 0;
+margin-bottom: 0;
+font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+.octicon {
+vertical-align: text-bottom;
+}
+input {
+-webkit-font-feature-settings: "liga" 0;
+font-feature-settings: "liga" 0;
+}
+.markdown-body::before {
+display: table;
+content: "";
+}
+.markdown-body::after {
+display: table;
+clear: both;
+content: "";
+}
+.markdown-body>*:first-child {
+margin-top: 0 !important;
+}
+.markdown-body>*:last-child {
+margin-bottom: 0 !important;
+}
+a:not([href]) {
+color: inherit;
+text-decoration: none;
+}
+.anchor {
+float: left;
+padding-right: 4px;
+margin-left: -20px;
+line-height: 1;
+}
+.anchor:focus {
+outline: none;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre {
+margin-top: 0;
+margin-bottom: 16px;
+}
+hr {
+height: 0.25em;
+padding: 0;
+margin: 24px 0;
+background-color: #e7e7e7;
+border: 0;
+}
+blockquote {
+padding: 0 1em;
+color: #777;
+border-left: 0.25em solid #ddd;
+}
+blockquote>:first-child {
+margin-top: 0;
+}
+blockquote>:last-child {
+margin-bottom: 0;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font-size: 11px;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 24px;
+margin-bottom: 16px;
+font-weight: 600;
+line-height: 1.25;
+}
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
+color: #000;
+vertical-align: middle;
+visibility: hidden;
+}
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+text-decoration: none;
+}
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
+visibility: visible;
+}
+h1 {
+padding-bottom: 0.3em;
+font-size: 2em;
+border-bottom: 1px solid #eee;
+}
+h2 {
+padding-bottom: 0.3em;
+font-size: 1.5em;
+border-bottom: 1px solid #eee;
+}
+h3 {
+font-size: 1.25em;
+}
+h4 {
+font-size: 1em;
+}
+h5 {
+font-size: 0.875em;
+}
+h6 {
+font-size: 0.85em;
+color: #777;
+}
+ul,
+ol {
+padding-left: 2em;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+margin-top: 0;
+margin-bottom: 0;
+}
+li>p {
+margin-top: 16px;
+}
+li+li {
+margin-top: 0.25em;
+}
+dl {
+padding: 0;
+}
+dl dt {
+padding: 0;
+margin-top: 16px;
+font-size: 1em;
+font-style: italic;
+font-weight: bold;
+}
+dl dd {
+padding: 0 16px;
+margin-bottom: 16px;
+}
+table {
+display: block;
+width: 100%;
+overflow: auto;
+}
+table th {
+font-weight: bold;
+}
+table th,
+table td {
+padding: 6px 13px;
+border: 1px solid #ddd;
+}
+table tr {
+background-color: #fff;
+border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+img {
+max-width: 100%;
+box-sizing: content-box;
+background-color: #fff;
+}
+code {
+padding: 0;
+padding-top: 0.2em;
+padding-bottom: 0.2em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(0,0,0,0.04);
+border-radius: 3px;
+}
+code::before,
+code::after {
+letter-spacing: -0.2em;
+content: "\00a0";
+}
+pre {
+word-wrap: normal;
+}
+pre>code {
+padding: 0;
+margin: 0;
+font-size: 100%;
+word-break: normal;
+white-space: pre;
+background: transparent;
+border: 0;
+}
+.highlight {
+margin-bottom: 16px;
+}
+.highlight pre {
+margin-bottom: 0;
+word-break: normal;
+}
+.highlight pre,
+pre {
+padding: 16px;
+overflow: auto;
+font-size: 85%;
+line-height: 1.45;
+background-color: #f7f7f7;
+border-radius: 3px;
+}
+pre code {
+display: inline;
+max-width: auto;
+padding: 0;
+margin: 0;
+overflow: visible;
+line-height: inherit;
+word-wrap: normal;
+background-color: transparent;
+border: 0;
+}
+pre code::before,
+pre code::after {
+content: normal;
+}
+.pl-0 {
+padding-left: 0 !important;
+}
+.pl-1 {
+padding-left: 3px !important;
+}
+.pl-2 {
+padding-left: 6px !important;
+}
+.pl-3 {
+padding-left: 12px !important;
+}
+.pl-4 {
+padding-left: 24px !important;
+}
+.pl-5 {
+padding-left: 36px !important;
+}
+.pl-6 {
+padding-left: 48px !important;
+}
+.full-commit .btn-outline:not(:disabled):hover {
+color: #4078c0;
+border: 1px solid #4078c0;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+:checked+.radio-label {
+position: relative;
+z-index: 1;
+border-color: #4078c0;
+}
+.task-list-item {
+list-style-type: none;
+}
+.task-list-item+.task-list-item {
+margin-top: 3px;
+}
+.task-list-item input {
+margin: 0 0.2em 0.25em -1.6em;
+vertical-align: middle;
+}
+hr {
+border-bottom-color: #eee;
+}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>firebird 3.0 на linux по команде isql SHOW GENERATORS показывает
+огромные текущие значения генераторов, при этом при просмотре этой же БД
+на Windows, все значения генераторов нормальные</p>
+<p>Если вы видите огромные текущие значения генераторов при
+использовании команды &quot;isql SHOW GENERATORS&quot; в Firebird 3.0 на Linux, но
+нормальные значения при просмотре той же базы данных на Windows, могут
+быть несколько возможных объяснений:</p>
+<ol type="1">
+<li><p>Различия в порядке байтов: движок Firebird SQL хранит
+целочисленные типы данных (включая значения генераторов) в определенном
+порядке байтов, известном как порядок байтов. Возможно, что системы
+Linux и Windows имеют разные порядки байтов, что может привести к
+различиям в отображении значений генераторов.</p></li>
+<li><p>Различия в конфигурации базы данных: возможно, что конфигурация
+базы данных на Linux отличается от конфигурации на Windows, что может
+повлиять на способ отображения значений генераторов.</p></li>
+<li><p>Различия в версии инструмента isql: возможно, что версия
+инструмента isql, используемого в системе Linux, отличается от версии на
+системе Windows, что может быть причиной различий в отображении значений
+генераторов.</p></li>
+</ol>
+<p>Чтобы определить причину проблемы, с которой вы столкнулись,
+рекомендуется проверить порядок байтов в системах Linux и Windows,
+сравнить конфигурации баз данных и проверить версии инструмента isql,
+которые используются. Кроме того, рекомендуется обратиться к
+документации Firebird SQL или обратиться за помощью к сообществу
+Firebird SQL для устранения этой проблемы.</p>
+<p>Концепция порядка байтов (endian) имеет отношение к тому, как
+компьютеры представляют и хранят целочисленные значения, такие как
+значения генераторов в Firebird SQL. Существует два основных порядка
+байтов: Big-endian (Большой порядок байтов) и Little-endian (Малый
+порядок байтов).</p>
+<p>В Big-endian порядке байтов байты хранятся в порядке от старшего к
+младшему. То есть, самый старший байт хранится первым, а самый младший
+байт - последним. Например, целочисленное значение 12345678 будет
+храниться как 0x12 0x34 0x56 0x78.</p>
+<p>В Little-endian порядке байтов байты хранятся в порядке от младшего к
+старшему. То есть, самый младший байт хранится первым, а самый старший
+байт - последним. Например, те же самые целочисленные значение 12345678
+будет храниться как 0x78 0x56 0x34 0x12.</p>
+<p>Если две системы имеют разный порядок байтов, то целочисленные
+значения, которые хранятся в одном порядке, могут выглядеть совершенно
+иначе, когда они интерпретируются другой системой с другим порядком
+байтов. Это может быть причиной различий в отображении значений
+генераторов между разными системами.</p>
+<p>Например, если целочисленное значение 12345678 хранится в Big-endian
+порядке байтов на одной системе, а на другой системе это же значение
+хранится в Little-endian порядке байтов, то при отображении значения
+генератора на второй системе оно будет выглядеть как 0x78 0x56 0x34
+0x12, что будет выглядеть как совершенно другое значение, отличное от
+исходного 12345678.</p>
+<p>Для того, чтобы избежать проблем с порядком байтов при переносе базы
+данных Firebird с Windows на Linux, необходимо убедиться, что файл базы
+данных был скопирован в двоичном режиме, а не в текстовом режиме. В
+текстовом режиме содержимое файла может быть изменено, и это может
+повлиять на порядок байтов, что может привести к ошибкам при работе с
+базой данных.</p>
+<p>Если вы копируете файл базы данных через сеть, рекомендуется
+использовать протокол передачи файлов, поддерживающий двоичный режим
+передачи данных, такой как FTP или SCP.</p>
+<p>Также, перед копированием файлов базы данных с Windows на Linux,
+необходимо убедиться, что обе системы используют один и тот же порядок
+байтов. В большинстве случаев Windows и Linux используют один и тот же
+порядок байтов (Little-endian), поэтому это обычно не является
+проблемой. Однако, если вы используете нестандартную конфигурацию, то
+может быть необходимо проверить порядок байтов на обеих системах и
+убедиться, что он совпадает.</p>
+<p>Кроме того, при переносе базы данных с Windows на Linux необходимо
+убедиться, что версия Firebird на обеих системах совпадает, и что
+используются одинаковые настройки сервера и клиента, чтобы избежать
+других проблем, связанных с совместимостью.</p>
+<p>можно проверить порядок байтов на обеих системах с помощью командной
+строки и утилиты <code>hexdump</code>. Для этого выполните следующие
+действия:</p>
+<ol type="1">
+<li><p>Создайте текстовый файл с одним словом, например,
+<code>&quot;test&quot;</code>.</p></li>
+<li><p>Сохраните файл на обеих системах.</p></li>
+<li><p>Откройте терминал на обеих системах.</p></li>
+<li><p>Введите следующую команду для вывода содержимого файла в
+шестнадцатеричном формате на Linux:</p></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>hexdump <span class="op">-</span>C test<span class="op">.</span><span class="fu">txt</span></span></code></pre></div>
+<ol start="5" type="1">
+<li>Введите следующую команду для вывода содержимого файла в
+шестнадцатеричном формате на Windows:</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">type</span> test<span class="op">.</span><span class="fu">txt</span> <span class="op">|</span> od <span class="op">-</span>t x1</span></code></pre></div>
+<ol start="6" type="1">
+<li><p>Сравните вывод на обеих системах. Если порядок байтов на обеих
+системах совпадает, то вывод должен быть одинаковым. Если порядок байтов
+различается, то вывод будет отличаться.</p></li>
+<li><p>Если порядок байтов различается, то необходимо принять
+соответствующие меры для обеспечения правильной передачи
+файлов.</p></li>
+</ol>
+<p>Ошибка
+<code>&quot;arithmetic exception, numeric overflow, or string truncation firebird numeric value is out of range&quot;</code>
+возникает в Firebird при попытке вставить значение, которое выходит за
+пределы диапазона допустимых значений для данного типа данных. Например,
+если вы пытаетесь вставить значение целочисленного типа данных, которое
+больше максимально допустимого значения для этого типа данных.</p>
+<p>Чтобы исправить эту ошибку, вам нужно убедиться, что вставляемые
+значения соответствуют типам данных, определенным для соответствующих
+столбцов в таблице базы данных Firebird.</p>
+<p>Ошибка
+<code>&quot;arithmetic exception, numeric overflow, or string truncation firebird numeric value is out of range&quot;</code>
+может быть связана с порядком байтов. Если порядок байтов на разных
+платформах отличается, то значения, которые вы пытаетесь вставить в базу
+данных Firebird, могут быть неправильно интерпретированы, что может
+привести к ошибке.</p>
+<p>Чтобы убедиться, что проблема связана с порядком байтов, вы можете
+проверить значения, которые вы пытаетесь вставить в базу данных, на
+обеих платформах с помощью утилиты, подобной hexdump или od, как я
+описал ранее. Если вы обнаружите различия в порядке байтов, то вам нужно
+будет сконвертировать значения в нужный порядок байтов, прежде чем
+вставлять их в базу данных Firebird.</p>
+<p>Если вы не можете сконвертировать значения в нужный порядок байтов,
+то вы можете рассмотреть использование средств миграции данных, таких
+как gbak или isql, которые позволяют создавать резервные копии и
+восстанавливать базы данных Firebird на разных платформах. Эти
+инструменты автоматически обрабатывают различия в порядке байтов и
+обеспечивают правильную передачу данных между разными платформами.</p>
+<p>Для миграции базы данных Firebird с Windows на Linux с помощью isql
+вам нужно выполнить следующие шаги:</p>
+<ol type="1">
+<li>Создайте резервную копию базы данных Firebird на Windows с помощью
+<code>gbak</code> (используйте административный инструментарий
+Firebird).</li>
+</ol>
+<p>Например, чтобы создать резервную копию базы данных с именем
+<code>mydatabase.fdb</code> и сохранить ее в файле
+<code>mydatabase.backup</code>, выполните следующую команду в командной
+строке Windows:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gbak <span class="op">-</span>b c<span class="op">:</span>\path\to\mydatabase<span class="op">.</span><span class="fu">fdb</span> c<span class="op">:</span>\path\to\mydatabase<span class="op">.</span><span class="fu">backup</span> <span class="op">-</span>user SYSDBA <span class="op">-</span>password masterkey</span></code></pre></div>
+<ol start="2" type="1">
+<li>Перенесите файл резервной копии mydatabase.backup на Linux.</li>
+</ol>
+<p>Вы можете скопировать файл на Linux с помощью инструментов командной
+строки, таких как scp или rsync, или использовать другой метод передачи
+файлов, который вам нравится.</p>
+<ol start="3" type="1">
+<li>Создайте новую базу данных Firebird на Linux с помощью isql.</li>
+</ol>
+<p>Например, чтобы создать новую базу данных с именем mydatabase.fdb в
+директории /opt/firebird/databases на Linux, выполните следующую команду
+в командной строке Linux:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>isql <span class="op">-</span>user SYSDBA <span class="op">-</span>password masterkey</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>SQL<span class="op">&gt;</span> create database <span class="st">&#39;/opt/firebird/databases/mydatabase.fdb&#39;</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>SQL<span class="op">&gt;</span> quit<span class="op">;</span></span></code></pre></div>
+<ol start="4" type="1">
+<li>Восстановите базу данных Firebird на Linux с помощью gbak.</li>
+</ol>
+<p>Например, чтобы восстановить резервную копию mydatabase.backup в базу
+данных mydatabase.fdb на Linux, выполните следующую команду в командной
+строке Linux:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gbak <span class="op">-</span>c mydatabase<span class="op">.</span><span class="fu">backup</span> <span class="op">/</span>opt<span class="op">/</span>firebird<span class="op">/</span>databases<span class="op">/</span>mydatabase<span class="op">.</span><span class="fu">fdb</span> <span class="op">-</span>user SYSDBA <span class="op">-</span>password masterkey</span></code></pre></div>
+<ol start="5" type="1">
+<li>Проверьте базу данных на Linux, чтобы убедиться, что она работает
+правильно.</li>
+</ol>
+<p>Вы можете подключиться к базе данных с помощью isql и выполнить
+простой запрос, чтобы убедиться, что данные были успешно
+восстановлены.</p>
+<p>Например:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>isql <span class="op">/</span>opt<span class="op">/</span>firebird<span class="op">/</span>databases<span class="op">/</span>mydatabase<span class="op">.</span><span class="fu">fdb</span> <span class="op">-</span>user SYSDBA <span class="op">-</span>password masterkey</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>SQL<span class="op">&gt;</span> <span class="fu">select</span> count<span class="op">(*)</span> <span class="kw">from</span> mytable<span class="op">;</span></span></code></pre></div>
+<p>Это должно вернуть количество строк в таблице mytable. Если запрос
+выполнен успешно, то вы можете быть уверены, что миграция базы данных
+Firebird с Windows на Linux была успешно завершена.</p>
+</body>
+</html>
